@@ -58,3 +58,6 @@ assets/dialog_flow_auth.dart
 /assets
 .env
 api-keys.json
+.vscode
+env.dart
+env.g.dart
