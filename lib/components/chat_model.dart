@@ -67,6 +67,14 @@ class ChatModel extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Row(
             children: [
+              IconButton(
+                icon: Icon(Icons.camera_alt_outlined),
+                onPressed: () {},
+              ),
+              IconButton(
+                icon: Icon(Icons.photo_album),
+                onPressed: () {},
+              ),
               Expanded(
                 child: TextField(
                   controller: controller,

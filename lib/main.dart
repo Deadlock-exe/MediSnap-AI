@@ -2,9 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:medisnap/auth/login_page.dart';
-import 'package:medisnap/auth/signup_page.dart';
-import 'package:medisnap/pages/chat_page.dart';
-import 'package:medisnap/pages/home_page.dart';
+import 'package:medisnap/constants/routes.dart';
 import 'package:medisnap/pages/main_page.dart';
 
 void main() async {
@@ -25,13 +23,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: AuthCheck(),
-      routes: {
-        '/login': (context) => LoginPage(),
-        '/signup': (context) => SignupPage(),
-        '/main': (context) => MainPage(),
-        '/home': (context) => HomePage(),
-        '/chat': (context) => ChatPage(),
-      },
+      routes: routes,
     );
   }
 }
