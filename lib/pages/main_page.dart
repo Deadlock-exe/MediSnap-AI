@@ -1,6 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:medisnap/components/drawer.dart';
 import 'package:medisnap/pages/chat_page.dart';
 import 'package:medisnap/pages/home_page.dart';
 
@@ -34,10 +34,11 @@ class _MainPageState extends State<MainPage> {
           vertical: 30,
         ),
         child: GNav(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           selectedIndex: _selectedIndex,
           onTabChange: navigateBottomBar,
-          color: Colors.white,
-          activeColor: Colors.white,
+          color: Colors.grey,
+          activeColor: Colors.blue,
           tabBackgroundColor: Colors.black,
           gap: 8,
           padding: const EdgeInsets.all(20),
@@ -54,44 +55,10 @@ class _MainPageState extends State<MainPage> {
         ),
       ),
       backgroundColor: Colors.white,
-      drawer: Drawer(
-        child: Container(
-          child: ListView(
-            children: [
-              DrawerHeader(
-                child: Center(
-                  child: Icon(
-                    Icons.person,
-                    size: 120,
-                  ),
-                ),
-              ),
-              ListTile(
-                leading: Icon(Icons.settings),
-                title: Text("Edit profile"),
-                onTap: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => const MainPage(),
-                  //   ),
-                  // );
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.logout),
-                title: Text("Logout"),
-                onTap: () {
-                  FirebaseAuth.instance.signOut();
-                },
-              ),
-            ],
-          ),
-        ),
-      ),
+      drawer: MyDrawer(),
       appBar: AppBar(
         backgroundColor: Colors.white,
-        toolbarHeight: 70,
+        toolbarHeight: 60,
         title: const Text(
           "MediSnap",
           style: TextStyle(
