@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:medisnap/api/model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
@@ -22,7 +21,7 @@ class _ChatPageState extends State<ChatPage> {
   void initState() {
     super.initState();
     _initializeChat();
-    _loadMessages();
+    // _loadMessages();
   }
 
   Future<void> _initializeChat() async {
@@ -36,25 +35,24 @@ class _ChatPageState extends State<ChatPage> {
     });
   }
 
-  Future<void> _loadMessages() async {
-    final prefs = await SharedPreferences.getInstance();
-    final messages = prefs.getStringList('chat_messages');
-    if (messages != null) {
-      setState(() {
-        _messages = messages;
-      });
-      WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
-    }
-  }
+  // Future<void> _loadMessages() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   final messages = prefs.getStringList('chat_messages');
+  //   if (messages != null) {
+  //     setState(() {
+  //       _messages = messages;
+  //     });
+  //     WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
+  //   }
+  // }
 
-  Future<void> _saveMessages() async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setStringList('chat_messages', _messages);
-  }
+  // Future<void> _saveMessages() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   prefs.setStringList('chat_messages', _messages);
+  // }
 
   Future<void> _sendMessage(String message) async {
     _controller.clear();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
     setState(() {
       _messages.add('You: $message');
     });
@@ -62,15 +60,15 @@ class _ChatPageState extends State<ChatPage> {
     setState(() {
       _messages.add('Bot: $response');
     });
-    _saveMessages();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
+    // _saveMessages();
+    // WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
   }
 
   void _scrollToBottom() {
     _scrollController.animateTo(
       _scrollController.position.maxScrollExtent + 300,
       duration: const Duration(milliseconds: 300),
-      curve: Curves.easeOut,
+      curve: Curves.decelerate,
     );
   }
 

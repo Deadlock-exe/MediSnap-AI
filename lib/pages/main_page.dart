@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:medisnap/pages/chat_page.dart';
@@ -11,7 +12,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  int _selectedIndex = 1;
+  int _selectedIndex = 0;
 
   void navigateBottomBar(int index) {
     setState(() {
@@ -53,8 +54,42 @@ class _MainPageState extends State<MainPage> {
         ),
       ),
       backgroundColor: Colors.white,
+      drawer: Drawer(
+        child: Container(
+          child: ListView(
+            children: [
+              DrawerHeader(
+                child: Center(
+                  child: Icon(
+                    Icons.person,
+                    size: 120,
+                  ),
+                ),
+              ),
+              ListTile(
+                leading: Icon(Icons.settings),
+                title: Text("Edit profile"),
+                onTap: () {
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => const MainPage(),
+                  //   ),
+                  // );
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.logout),
+                title: Text("Logout"),
+                onTap: () {
+                  FirebaseAuth.instance.signOut();
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
       appBar: AppBar(
-        automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
         toolbarHeight: 70,
         title: const Text(

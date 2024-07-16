@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:medisnap/auth/signup_page.dart';
-import 'package:medisnap/pages/main_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -128,12 +126,7 @@ class _LoginPageState extends State<LoginPage> {
                 password: password,
               );
               setState(() {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const MainPage(),
-                  ),
-                );
+                Navigator.pushReplacementNamed(context, '/main');
               });
             },
             style: ElevatedButton.styleFrom(
@@ -156,12 +149,7 @@ class _LoginPageState extends State<LoginPage> {
           TextButton(
             onPressed: () {
               setState(() {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const SignupPage(),
-                  ),
-                );
+                Navigator.pushReplacementNamed(context, '/signup');
               });
             },
             child: Text(
