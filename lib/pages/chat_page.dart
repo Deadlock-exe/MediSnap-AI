@@ -1,4 +1,6 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:medisnap/api/model.dart';
 import 'package:medisnap/components/chat_model.dart';
@@ -21,6 +23,7 @@ class _ChatPageState extends State<ChatPage> {
   void initState() {
     super.initState();
     _initializeChat();
+    Gemini.init(apiKey: apiKey);
   }
 
   Future<void> _initializeChat() async {
@@ -45,6 +48,27 @@ class _ChatPageState extends State<ChatPage> {
     });
   }
 
+  Future<void> _sendImage(File image, String prompt) async {
+    setState(() {
+      _messages.add("You: $prompt \n (you added 1 attachment)");
+    });
+    try {
+      final gemini = Gemini.instance;
+      final response = await gemini.textAndImage(
+        text: prompt,
+        images: [image.readAsBytesSync()],
+      );
+      setState(() {
+        _messages.add(
+            'Bot: ${response?.content?.parts?.last.text ?? 'No response'}');
+      });
+    } catch (e) {
+      setState(() {
+        _messages.add('Bot: Error analyzing image: $e');
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,6 +79,7 @@ class _ChatPageState extends State<ChatPage> {
         messages: _messages,
         controller: _controller,
         sendMessage: _sendMessage,
+        sendImage: _sendImage,
       ),
     );
   }

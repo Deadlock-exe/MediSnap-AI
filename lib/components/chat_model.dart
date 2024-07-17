@@ -1,14 +1,21 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:medisnap/components/image/send_image.dart';
 
 class ChatModel extends StatelessWidget {
   final List<String> messages;
   final TextEditingController controller;
   final Function(String) sendMessage;
+  final Function(File, String) sendImage;
+
   const ChatModel({
     super.key,
     required this.messages,
     required this.controller,
     required this.sendMessage,
+    required this.sendImage,
   });
 
   @override
@@ -69,11 +76,15 @@ class ChatModel extends StatelessWidget {
             children: [
               IconButton(
                 icon: Icon(Icons.camera_alt_outlined),
-                onPressed: () {},
+                onPressed: () {
+                  pickImage(ImageSource.camera, context, sendImage);
+                },
               ),
               IconButton(
                 icon: Icon(Icons.photo_album),
-                onPressed: () {},
+                onPressed: () {
+                  pickImage(ImageSource.gallery, context, sendImage);
+                },
               ),
               Expanded(
                 child: TextField(
