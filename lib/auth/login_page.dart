@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:medisnap/constants/colors.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -29,11 +30,17 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: primaryColor,
       appBar: AppBar(
-        title: const Text("Login"),
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
+        title: const Text(
+          "Login",
+          style: TextStyle(
+            fontSize: 25,
+            letterSpacing: 3,
+          ),
+        ),
+        backgroundColor: primaryColor,
+        foregroundColor: textColor,
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -41,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
           Icon(
             Icons.lock,
             size: 200,
-            color: Colors.black,
+            color: secondaryColor,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(
@@ -53,26 +60,31 @@ class _LoginPageState extends State<LoginPage> {
               autocorrect: false,
               keyboardType: TextInputType.emailAddress,
               decoration: const InputDecoration(
-                label: Text("Enter email address"),
+                label: Text(
+                  "Enter email address",
+                  style: TextStyle(
+                    color: secondaryColor,
+                  ),
+                ),
                 floatingLabelStyle: TextStyle(
-                  color: Colors.black,
+                  color: secondaryColor,
                 ),
                 prefixIcon: Icon(Icons.email),
-                prefixIconColor: Colors.black,
+                prefixIconColor: textColor,
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: Colors.black,
+                    color: textColor,
                   ),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: Colors.black,
-                    width: 2,
+                    color: secondaryColor,
+                    width: 1,
                   ),
                 ),
               ),
               style: const TextStyle(
-                color: Colors.black,
+                color: textColor,
               ),
             ),
           ),
@@ -89,32 +101,35 @@ class _LoginPageState extends State<LoginPage> {
               decoration: const InputDecoration(
                 label: Text(
                   "Enter your password",
+                  style: TextStyle(
+                    color: secondaryColor,
+                  ),
                 ),
                 floatingLabelStyle: TextStyle(
-                  color: Colors.black,
+                  color: secondaryColor,
                 ),
                 prefixIcon: Icon(Icons.password),
-                prefixIconColor: Colors.black,
+                prefixIconColor: textColor,
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: Colors.black,
+                    color: textColor,
                     width: 2,
                   ),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: Colors.black,
-                    width: 2,
+                    color: textColor,
+                    width: 1,
                   ),
                 ),
               ),
               style: const TextStyle(
-                color: Colors.black,
+                color: textColor,
               ),
             ),
           ),
           const SizedBox(
-            height: 16,
+            height: 24,
           ),
           ElevatedButton(
             onPressed: () async {
@@ -130,19 +145,20 @@ class _LoginPageState extends State<LoginPage> {
               });
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.black,
+              backgroundColor: accentColor,
               shape: ContinuousRectangleBorder(
                 borderRadius: BorderRadius.circular(30),
               ),
               padding: const EdgeInsets.symmetric(
-                vertical: 18,
-                horizontal: 40,
+                vertical: 15,
+                horizontal: 50,
               ),
             ),
             child: const Text(
               "Login",
               style: TextStyle(
-                color: Colors.black,
+                color: primaryColor,
+                fontSize: 20,
               ),
             ),
           ),
@@ -155,7 +171,7 @@ class _LoginPageState extends State<LoginPage> {
             child: Text(
               "New user? Regsiter now",
               style: TextStyle(
-                color: Colors.black,
+                color: textColor,
                 fontSize: 16,
               ),
             ),

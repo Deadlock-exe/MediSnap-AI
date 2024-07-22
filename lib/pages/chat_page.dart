@@ -4,6 +4,7 @@ import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:medisnap/api/model.dart';
 import 'package:medisnap/components/chat_model.dart';
+import 'package:medisnap/constants/colors.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
@@ -72,8 +73,10 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: primaryColor,
       appBar: AppBar(
-        title: Text("AI CHAT"),
+        toolbarHeight: 20,
+        backgroundColor: primaryColor,
       ),
       body: ChatModel(
         messages: _messages,

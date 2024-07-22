@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:medisnap/constants/colors.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
@@ -7,6 +8,7 @@ class MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      backgroundColor: primaryColor,
       child: Container(
         child: ListView(
           children: [
@@ -15,11 +17,18 @@ class MyDrawer extends StatelessWidget {
                 child: Icon(
                   Icons.person,
                   size: 120,
+                  color: secondaryColor,
                 ),
               ),
             ),
             ListTile(
-              leading: Icon(Icons.settings),
+              titleTextStyle: TextStyle(
+                color: textColor,
+              ),
+              leading: Icon(
+                Icons.settings,
+                color: textColor,
+              ),
               title: Text("Edit profile"),
               onTap: () {
                 // Navigator.push(
@@ -31,7 +40,13 @@ class MyDrawer extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: Icon(Icons.logout),
+              titleTextStyle: TextStyle(
+                color: textColor,
+              ),
+              leading: Icon(
+                Icons.logout,
+                color: textColor,
+              ),
               title: Text("Logout"),
               onTap: () {
                 FirebaseAuth.instance.signOut();

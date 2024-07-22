@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medisnap/components/camera_button.dart';
+import 'package:medisnap/constants/colors.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -7,8 +8,9 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: primaryColor,
       appBar: AppBar(
-        title: Text("HomePage"),
+        backgroundColor: primaryColor,
       ),
       floatingActionButton: CameraButton(),
     );

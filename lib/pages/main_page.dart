@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:medisnap/components/drawer.dart';
+import 'package:medisnap/constants/colors.dart';
 import 'package:medisnap/pages/chat_page.dart';
 import 'package:medisnap/pages/home_page.dart';
 
@@ -30,34 +31,38 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(
-          horizontal: 40,
-          vertical: 30,
+          horizontal: 50,
+          vertical: 20,
         ),
         child: GNav(
+          backgroundColor: primaryColor,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           selectedIndex: _selectedIndex,
           onTabChange: navigateBottomBar,
-          color: Colors.grey,
-          activeColor: Colors.blue,
-          tabBackgroundColor: Colors.black,
-          gap: 8,
-          padding: const EdgeInsets.all(20),
+          color: textColor,
+          activeColor: primaryColor,
+          tabBackgroundColor: secondaryColor,
+          gap: 5,
+          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 22),
           tabs: const [
             GButton(
               icon: Icons.home_sharp,
               text: "HOME",
+              iconSize: 36,
             ),
             GButton(
               icon: Icons.chat,
               text: "CHAT",
+              iconSize: 36,
             ),
           ],
         ),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: primaryColor,
       drawer: MyDrawer(),
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(color: textColor),
+        backgroundColor: primaryColor,
         toolbarHeight: 60,
         title: const Text(
           "MediSnap",
@@ -65,6 +70,7 @@ class _MainPageState extends State<MainPage> {
             letterSpacing: 3,
             fontSize: 26,
             fontWeight: FontWeight.bold,
+            color: textColor,
           ),
         ),
       ),

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:medisnap/components/image/send_image.dart';
+import 'package:medisnap/constants/colors.dart';
 
 class ChatModel extends StatelessWidget {
   final List<String> messages;
@@ -31,7 +32,7 @@ class ChatModel extends StatelessWidget {
               final isUserMessage = message.startsWith('You:');
               final alignment =
                   isUserMessage ? Alignment.centerRight : Alignment.centerLeft;
-              final color = isUserMessage ? Colors.blue[200] : Colors.grey[300];
+              final color = isUserMessage ? secondaryColor : accentColor;
               final borderRadius = isUserMessage
                   ? BorderRadius.only(
                       topLeft: Radius.circular(12),
@@ -75,36 +76,60 @@ class ChatModel extends StatelessWidget {
           child: Row(
             children: [
               IconButton(
-                icon: Icon(Icons.camera_alt_outlined),
+                icon: Icon(
+                  Icons.camera_alt_outlined,
+                  color: textColor,
+                ),
                 onPressed: () {
                   pickImage(ImageSource.camera, context, sendImage);
                 },
               ),
               IconButton(
-                icon: Icon(Icons.photo_album),
+                icon: Icon(
+                  Icons.photo_album,
+                  color: textColor,
+                ),
                 onPressed: () {
                   pickImage(ImageSource.gallery, context, sendImage);
                 },
               ),
               Expanded(
                 child: TextField(
+                  style: TextStyle(color: textColor),
                   controller: controller,
                   autocorrect: false,
                   autofocus: true,
                   decoration: InputDecoration(
                     hintText: 'Type a message',
+                    hintStyle: TextStyle(color: secondaryColor),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: textColor,
+                        width: 1,
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: textColor,
+                        width: 1,
+                      ),
+                    ),
                     contentPadding: EdgeInsets.symmetric(
-                      vertical: 10,
+                      vertical: 12,
                       horizontal: 14,
                     ),
                   ),
                 ),
               ),
               IconButton(
-                icon: Icon(Icons.send),
+                icon: Icon(
+                  Icons.send,
+                  color: accentColor,
+                  size: 30,
+                ),
                 onPressed: () {
                   final message = controller.text;
                   if (message.isNotEmpty) {
