@@ -42,142 +42,146 @@ class _SignupPageState extends State<SignupPage> {
         backgroundColor: primaryColor,
         foregroundColor: textColor,
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.lock_outline_rounded,
-            size: 200,
-            color: secondaryColor,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 20,
-              horizontal: 30,
-            ),
-            child: TextField(
-              controller: _email,
-              autocorrect: false,
-              keyboardType: TextInputType.emailAddress,
-              decoration: const InputDecoration(
-                label: Text(
-                  "Enter email address",
-                  style: TextStyle(
-                    color: secondaryColor,
+      body: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.lock_outline_rounded,
+                size: 200,
+                color: secondaryColor,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 20,
+                  horizontal: 30,
+                ),
+                child: TextField(
+                  controller: _email,
+                  autocorrect: false,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: const InputDecoration(
+                    label: Text(
+                      "Enter email address",
+                      style: TextStyle(
+                        color: secondaryColor,
+                      ),
+                    ),
+                    floatingLabelStyle: TextStyle(
+                      color: secondaryColor,
+                    ),
+                    prefixIcon: Icon(Icons.email),
+                    prefixIconColor: textColor,
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: textColor,
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: secondaryColor,
+                        width: 1,
+                      ),
+                    ),
                   ),
-                ),
-                floatingLabelStyle: TextStyle(
-                  color: secondaryColor,
-                ),
-                prefixIcon: Icon(Icons.email),
-                prefixIconColor: textColor,
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
+                  style: const TextStyle(
                     color: textColor,
                   ),
                 ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: secondaryColor,
-                    width: 1,
-                  ),
-                ),
               ),
-              style: const TextStyle(
-                color: textColor,
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 5,
-              horizontal: 30,
-            ),
-            child: TextField(
-              controller: _password,
-              obscureText: true,
-              autocorrect: false,
-              enableSuggestions: false,
-              decoration: const InputDecoration(
-                label: Text(
-                  "Enter a password",
-                  style: TextStyle(
-                    color: secondaryColor,
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 5,
+                  horizontal: 30,
+                ),
+                child: TextField(
+                  controller: _password,
+                  obscureText: true,
+                  autocorrect: false,
+                  enableSuggestions: false,
+                  decoration: const InputDecoration(
+                    label: Text(
+                      "Enter a password",
+                      style: TextStyle(
+                        color: secondaryColor,
+                      ),
+                    ),
+                    floatingLabelStyle: TextStyle(
+                      color: secondaryColor,
+                    ),
+                    prefixIcon: Icon(Icons.password),
+                    prefixIconColor: textColor,
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: textColor,
+                        width: 2,
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: textColor,
+                        width: 1,
+                      ),
+                    ),
                   ),
-                ),
-                floatingLabelStyle: TextStyle(
-                  color: secondaryColor,
-                ),
-                prefixIcon: Icon(Icons.password),
-                prefixIconColor: textColor,
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
+                  style: const TextStyle(
                     color: textColor,
-                    width: 2,
-                  ),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: textColor,
-                    width: 1,
                   ),
                 ),
               ),
-              style: const TextStyle(
-                color: textColor,
+              const SizedBox(
+                height: 16,
               ),
-            ),
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          ElevatedButton(
-            onPressed: () async {
-              final email = _email.text;
-              final password = _password.text;
+              ElevatedButton(
+                onPressed: () async {
+                  final email = _email.text;
+                  final password = _password.text;
 
-              await FirebaseAuth.instance.createUserWithEmailAndPassword(
-                email: email,
-                password: password,
-              );
-              setState(() {
-                Navigator.pushReplacementNamed(context, '/main');
-              });
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: accentColor,
-              shape: ContinuousRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
+                  await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                    email: email,
+                    password: password,
+                  );
+                  setState(() {
+                    Navigator.pushReplacementNamed(context, '/main');
+                  });
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: accentColor,
+                  shape: ContinuousRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 15,
+                    horizontal: 50,
+                  ),
+                ),
+                child: const Text(
+                  "Register",
+                  style: TextStyle(
+                    color: primaryColor,
+                    fontSize: 20,
+                  ),
+                ),
               ),
-              padding: const EdgeInsets.symmetric(
-                vertical: 15,
-                horizontal: 50,
+              TextButton(
+                onPressed: () {
+                  Navigator.pushReplacementNamed(context, '/login');
+                },
+                child: Text(
+                  "Already a user? Login",
+                  style: TextStyle(
+                    color: textColor,
+                    fontSize: 16,
+                  ),
+                ),
               ),
-            ),
-            child: const Text(
-              "Register",
-              style: TextStyle(
-                color: primaryColor,
-                fontSize: 20,
+              const SizedBox(
+                height: 40,
               ),
-            ),
+            ],
           ),
-          TextButton(
-            onPressed: () {
-              Navigator.pushReplacementNamed(context, '/login');
-            },
-            child: Text(
-              "Already a user? Login",
-              style: TextStyle(
-                color: textColor,
-                fontSize: 16,
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 40,
-          ),
-        ],
+        ),
       ),
     );
   }

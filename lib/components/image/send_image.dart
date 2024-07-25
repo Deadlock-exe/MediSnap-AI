@@ -29,8 +29,10 @@ Future<void> showPromptDialog(
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            SizedBox(
-              height: 200,
+            Container(
+              constraints: BoxConstraints(
+                maxHeight: MediaQuery.of(context).size.height * 0.4,
+              ),
               child: Image.file(image),
             ),
             SizedBox(

@@ -32,9 +32,10 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 50,
-          vertical: 20,
+        padding: const EdgeInsets.only(
+          bottom: 10,
+          left: 60,
+          right: 60,
         ),
         child: GNav(
           backgroundColor: primaryColor,
@@ -45,7 +46,7 @@ class _MainPageState extends State<MainPage> {
           activeColor: primaryColor,
           tabBackgroundColor: secondaryColor,
           gap: 5,
-          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 22),
+          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 16),
           tabs: const [
             GButton(
               icon: Icons.home_sharp,
@@ -65,7 +66,8 @@ class _MainPageState extends State<MainPage> {
       appBar: AppBar(
         iconTheme: IconThemeData(color: textColor),
         backgroundColor: primaryColor,
-        toolbarHeight: 60,
+        toolbarHeight: 40,
+        centerTitle: true,
         title: const Text(
           "MediSnap",
           style: TextStyle(
