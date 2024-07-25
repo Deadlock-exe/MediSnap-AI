@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:medisnap/constants/colors.dart';
+import 'package:medisnap/pages/chat_page.dart';
 
-class CameraButton extends StatefulWidget {
-  const CameraButton({super.key});
+class CameraButton extends StatelessWidget {
+  const CameraButton({
+    super.key,
+  });
 
-  @override
-  State<CameraButton> createState() => _CameraButtonState();
-}
-
-class _CameraButtonState extends State<CameraButton> {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
@@ -18,7 +16,11 @@ class _CameraButtonState extends State<CameraButton> {
         borderRadius: BorderRadius.circular(15.0),
       ),
       elevation: 1,
-      onPressed: () {},
+      onPressed: () {
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => ChatPage(openCameraOnStart: true),
+        ));
+      },
       child: Icon(
         Icons.camera_alt,
         size: 30,

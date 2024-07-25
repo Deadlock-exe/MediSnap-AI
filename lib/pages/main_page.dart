@@ -23,7 +23,9 @@ class _MainPageState extends State<MainPage> {
 
   final List<Widget> _pages = [
     const HomePage(),
-    const ChatPage(),
+    ChatPage(
+      openCameraOnStart: false,
+    ),
   ];
 
   @override

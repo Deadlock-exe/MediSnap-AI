@@ -2,12 +2,19 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:medisnap/api/model.dart';
 import 'package:medisnap/components/chat_model.dart';
+import 'package:medisnap/components/image/send_image.dart';
 import 'package:medisnap/constants/colors.dart';
 
+// ignore: must_be_immutable
 class ChatPage extends StatefulWidget {
-  const ChatPage({super.key});
+  bool openCameraOnStart;
+  ChatPage({
+    super.key,
+    required this.openCameraOnStart,
+  });
 
   @override
   State<ChatPage> createState() => _ChatPageState();
@@ -25,6 +32,11 @@ class _ChatPageState extends State<ChatPage> {
     super.initState();
     _initializeChat();
     Gemini.init(apiKey: apiKey);
+    if (widget.openCameraOnStart) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        pickImage(ImageSource.camera, context, _sendImage);
+      });
+    }
   }
 
   Future<void> _initializeChat() async {

@@ -40,6 +40,7 @@ Future<void> showPromptDialog(
               onChanged: (value) {
                 prompt = value;
               },
+              style: TextStyle(color: textColor),
               decoration: const InputDecoration(
                 hintText: "Enter prompt here",
                 hintStyle: TextStyle(

@@ -10,5 +10,7 @@ Map<String, Widget Function(BuildContext)> routes = {
   '/signup': (context) => SignupPage(),
   '/main': (context) => MainPage(),
   '/home': (context) => HomePage(),
-  '/chat': (context) => ChatPage(),
+  '/chat': (context) => ChatPage(
+        openCameraOnStart: false,
+      ),
 };
