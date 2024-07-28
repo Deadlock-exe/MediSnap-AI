@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:medisnap/components/chat_model.dart';
+import 'package:medisnap/components/save_dialog.dart';
 import 'package:medisnap/constants/colors.dart';
 import 'package:medisnap/provider/chat_provider.dart';
 import 'package:medisnap/provider/image_provider.dart';
@@ -53,11 +54,14 @@ class _ChatPageState extends State<ChatPage> {
               size: 25,
               color: textColor,
             ),
-            onPressed: () {
-              chatProvider.saveSession();
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Chat session saved!')),
-              );
+            onPressed: () async {
+              final sessionName = await showSaveDialog(context);
+              if (sessionName != null && sessionName.isNotEmpty) {
+                chatProvider.saveSession(sessionName);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Chat session "$sessionName" saved!')),
+                );
+              }
             },
           ),
         ],

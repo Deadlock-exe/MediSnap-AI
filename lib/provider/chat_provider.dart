@@ -10,12 +10,14 @@ class MyChatProvider with ChangeNotifier {
   bool _isChatInitialized = false;
   final List<String> _messages = [];
   Box<dynamic> _chatBox = Hive.box('chat_sessions');
+  List<String> _sessionOrder = [];
 
   List<String> get messages => _messages;
   bool get isChatInitialized => _isChatInitialized;
 
   MyChatProvider() {
     _initializeChat();
+    _loadSessionOrder();
   }
 
   Future<void> _initializeChat() async {
@@ -44,17 +46,19 @@ class MyChatProvider with ChangeNotifier {
         text: prompt,
         images: [image.readAsBytesSync()],
       );
-      _messages
-          .add('Bot: ${response?.content?.parts?.last.text ?? 'No response'}');
+      _messages.add(
+        'Bot: ${response?.content?.parts?.last.text ?? 'No response'}',
+      );
     } catch (e) {
       _messages.add('Bot: Error analyzing image: $e');
     }
     notifyListeners();
   }
 
-  void saveSession() {
-    final sessionKey = 'session_${DateTime.now().millisecondsSinceEpoch}';
-    _chatBox.put(sessionKey, _messages.toList()); // Save a copy of the list
+  void saveSession(String sessionName) {
+    _chatBox.put(sessionName, _messages.toList());
+    _sessionOrder.add(sessionName);
+    _chatBox.put('session_order', _sessionOrder);
   }
 
   void loadSession(List<String> messages) {
@@ -63,8 +67,14 @@ class MyChatProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void _loadSessionOrder() {
+    if (_chatBox.containsKey('session_order')) {
+      _sessionOrder = _chatBox.get('session_order').cast<String>();
+    }
+  }
+
   List<String> getAllSessions() {
-    return _chatBox.keys.cast<String>().toList();
+    return _sessionOrder.reversed.toList();
   }
 
   List<String> getSession(String key) {
