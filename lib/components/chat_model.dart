@@ -1,9 +1,9 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:medisnap/components/image/send_image.dart';
 import 'package:medisnap/constants/colors.dart';
+import 'package:medisnap/provider/image_provider.dart';
+import 'package:provider/provider.dart';
 
 class ChatModel extends StatelessWidget {
   final List<String> messages;
@@ -46,6 +46,7 @@ class ChatModel extends StatelessWidget {
                     );
 
               return Container(
+                padding: EdgeInsets.symmetric(vertical: 0, horizontal: 4),
                 margin: const EdgeInsets.symmetric(
                   vertical: 5,
                   horizontal: 10,
@@ -63,7 +64,7 @@ class ChatModel extends StatelessWidget {
                     ),
                     child: Text(
                       message.substring(5),
-                      style: TextStyle(fontSize: 16),
+                      style: TextStyle(fontSize: 15),
                     ),
                   ),
                 ),
@@ -81,7 +82,9 @@ class ChatModel extends StatelessWidget {
                   color: textColor,
                 ),
                 onPressed: () {
-                  pickImage(ImageSource.camera, context, sendImage);
+                  context
+                      .read<MyImageProvider>()
+                      .pickImage(ImageSource.camera, context, sendImage);
                 },
               ),
               IconButton(
@@ -90,7 +93,9 @@ class ChatModel extends StatelessWidget {
                   color: textColor,
                 ),
                 onPressed: () {
-                  pickImage(ImageSource.gallery, context, sendImage);
+                  context
+                      .read<MyImageProvider>()
+                      .pickImage(ImageSource.gallery, context, sendImage);
                 },
               ),
               Expanded(
@@ -135,6 +140,7 @@ class ChatModel extends StatelessWidget {
                   if (message.isNotEmpty) {
                     sendMessage(message);
                   }
+                  controller.clear();
                 },
               ),
             ],

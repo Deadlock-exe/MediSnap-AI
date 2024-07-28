@@ -34,8 +34,8 @@ class _MainPageState extends State<MainPage> {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.only(
           bottom: 10,
-          left: 60,
-          right: 60,
+          left: 50,
+          right: 50,
         ),
         child: GNav(
           backgroundColor: primaryColor,
@@ -46,17 +46,17 @@ class _MainPageState extends State<MainPage> {
           activeColor: primaryColor,
           tabBackgroundColor: secondaryColor,
           gap: 5,
-          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
           tabs: const [
             GButton(
               icon: Icons.home_sharp,
               text: "HOME",
-              iconSize: 36,
+              iconSize: 25,
             ),
             GButton(
               icon: Icons.chat,
               text: "CHAT",
-              iconSize: 36,
+              iconSize: 25,
             ),
           ],
         ),
@@ -66,13 +66,13 @@ class _MainPageState extends State<MainPage> {
       appBar: AppBar(
         iconTheme: IconThemeData(color: textColor),
         backgroundColor: primaryColor,
-        toolbarHeight: 40,
+        toolbarHeight: 50,
         centerTitle: true,
         title: const Text(
           "MediSnap",
           style: TextStyle(
             letterSpacing: 3,
-            fontSize: 26,
+            fontSize: 20,
             fontWeight: FontWeight.bold,
             color: textColor,
           ),

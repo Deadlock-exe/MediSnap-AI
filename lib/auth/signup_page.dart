@@ -1,6 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:medisnap/constants/colors.dart';
+import 'package:medisnap/provider/auth_provider.dart';
+import 'package:provider/provider.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -32,11 +33,12 @@ class _SignupPageState extends State<SignupPage> {
     return Scaffold(
       backgroundColor: primaryColor,
       appBar: AppBar(
+        centerTitle: true,
         title: const Text(
-          "Regsiter",
+          "Regsiter to use the App",
           style: TextStyle(
-            fontSize: 25,
-            letterSpacing: 3,
+            fontSize: 20,
+            letterSpacing: 2,
           ),
         ),
         backgroundColor: primaryColor,
@@ -49,12 +51,15 @@ class _SignupPageState extends State<SignupPage> {
             children: [
               Icon(
                 Icons.lock_outline_rounded,
-                size: 200,
+                size: 180,
                 color: secondaryColor,
+              ),
+              const SizedBox(
+                height: 10,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(
-                  vertical: 20,
+                  vertical: 10,
                   horizontal: 30,
                 ),
                 child: TextField(
@@ -92,7 +97,7 @@ class _SignupPageState extends State<SignupPage> {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(
-                  vertical: 5,
+                  vertical: 2,
                   horizontal: 30,
                 ),
                 child: TextField(
@@ -131,20 +136,20 @@ class _SignupPageState extends State<SignupPage> {
                 ),
               ),
               const SizedBox(
-                height: 16,
+                height: 12,
               ),
               ElevatedButton(
                 onPressed: () async {
                   final email = _email.text;
                   final password = _password.text;
 
-                  await FirebaseAuth.instance.createUserWithEmailAndPassword(
-                    email: email,
-                    password: password,
+                  await Provider.of<FirebaseAuthProvider>(
+                          listen: false, context)
+                      .signUp(
+                    email,
+                    password,
                   );
-                  setState(() {
-                    Navigator.pushReplacementNamed(context, '/main');
-                  });
+                  Navigator.pushReplacementNamed(context, '/main');
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: accentColor,
@@ -152,15 +157,15 @@ class _SignupPageState extends State<SignupPage> {
                     borderRadius: BorderRadius.circular(30),
                   ),
                   padding: const EdgeInsets.symmetric(
-                    vertical: 15,
-                    horizontal: 50,
+                    vertical: 12,
+                    horizontal: 40,
                   ),
                 ),
                 child: const Text(
                   "Register",
                   style: TextStyle(
                     color: primaryColor,
-                    fontSize: 20,
+                    fontSize: 16,
                   ),
                 ),
               ),
@@ -172,7 +177,7 @@ class _SignupPageState extends State<SignupPage> {
                   "Already a user? Login",
                   style: TextStyle(
                     color: textColor,
-                    fontSize: 16,
+                    fontSize: 14,
                   ),
                 ),
               ),

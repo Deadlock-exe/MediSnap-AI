@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:medisnap/constants/colors.dart';
+import 'package:medisnap/provider/auth_provider.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -32,11 +33,12 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       backgroundColor: primaryColor,
       appBar: AppBar(
+        centerTitle: true,
         title: const Text(
-          "Login",
+          "Log in to the App",
           style: TextStyle(
-            fontSize: 25,
-            letterSpacing: 3,
+            fontSize: 20,
+            letterSpacing: 2,
           ),
         ),
         backgroundColor: primaryColor,
@@ -49,12 +51,15 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               Icon(
                 Icons.lock,
-                size: 200,
+                size: 180,
                 color: secondaryColor,
+              ),
+              const SizedBox(
+                height: 10,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(
-                  vertical: 20,
+                  vertical: 10,
                   horizontal: 30,
                 ),
                 child: TextField(
@@ -92,7 +97,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(
-                  vertical: 5,
+                  vertical: 2,
                   horizontal: 30,
                 ),
                 child: TextField(
@@ -131,20 +136,16 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               const SizedBox(
-                height: 24,
+                height: 20,
               ),
               ElevatedButton(
                 onPressed: () async {
                   final email = _email.text;
                   final password = _password.text;
-
-                  await FirebaseAuth.instance.signInWithEmailAndPassword(
-                    email: email,
-                    password: password,
-                  );
-                  setState(() {
-                    Navigator.pushReplacementNamed(context, '/main');
-                  });
+                  await Provider.of<FirebaseAuthProvider>(
+                          listen: false, context)
+                      .signIn(email, password);
+                  Navigator.pushReplacementNamed(context, '/main');
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: accentColor,
@@ -152,29 +153,27 @@ class _LoginPageState extends State<LoginPage> {
                     borderRadius: BorderRadius.circular(30),
                   ),
                   padding: const EdgeInsets.symmetric(
-                    vertical: 15,
-                    horizontal: 50,
+                    vertical: 12,
+                    horizontal: 40,
                   ),
                 ),
                 child: const Text(
                   "Login",
                   style: TextStyle(
                     color: primaryColor,
-                    fontSize: 20,
+                    fontSize: 16,
                   ),
                 ),
               ),
               TextButton(
                 onPressed: () {
-                  setState(() {
-                    Navigator.pushReplacementNamed(context, '/signup');
-                  });
+                  Navigator.pushReplacementNamed(context, '/signup');
                 },
                 child: Text(
                   "New user? Regsiter now",
                   style: TextStyle(
                     color: textColor,
-                    fontSize: 16,
+                    fontSize: 14,
                   ),
                 ),
               ),

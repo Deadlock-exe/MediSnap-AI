@@ -5,6 +5,10 @@ import 'package:medisnap/auth/login_page.dart';
 import 'package:medisnap/constants/routes.dart';
 import 'package:medisnap/firebase_options.dart';
 import 'package:medisnap/pages/main_page.dart';
+import 'package:medisnap/provider/auth_provider.dart';
+import 'package:medisnap/provider/chat_provider.dart';
+import 'package:medisnap/provider/image_provider.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,10 +27,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: AuthCheck(),
-      routes: routes,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => FirebaseAuthProvider()),
+        ChangeNotifierProvider(create: (_) => MyChatProvider()),
+        ChangeNotifierProvider(create: (_) => MyImageProvider()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: AuthCheck(),
+        routes: routes,
+      ),
     );
   }
 }
@@ -34,15 +45,12 @@ class MyApp extends StatelessWidget {
 class AuthCheck extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<User?>(
-      stream: FirebaseAuth.instance.authStateChanges(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
-        } else if (snapshot.hasData) {
-          return MainPage();
-        } else {
+    return Consumer<FirebaseAuthProvider>(
+      builder: (context, authProvider, child) {
+        if (authProvider.user == null) {
           return LoginPage();
+        } else {
+          return MainPage();
         }
       },
     );

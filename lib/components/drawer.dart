@@ -1,6 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:medisnap/constants/colors.dart';
+import 'package:medisnap/provider/auth_provider.dart';
+import 'package:provider/provider.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
@@ -49,7 +50,8 @@ class MyDrawer extends StatelessWidget {
               ),
               title: Text("Logout"),
               onTap: () {
-                FirebaseAuth.instance.signOut();
+                Provider.of<FirebaseAuthProvider>(listen: false, context)
+                    .signOut();
                 Navigator.pushReplacementNamed(context, '/login');
               },
             ),
