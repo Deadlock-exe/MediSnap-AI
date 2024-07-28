@@ -1,14 +1,15 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart' as flutter_gemini;
 import 'package:google_generative_ai/google_generative_ai.dart';
+import 'package:hive/hive.dart';
 import 'package:medisnap/api/model.dart';
 
 class MyChatProvider with ChangeNotifier {
   ChatSession? _chat;
   bool _isChatInitialized = false;
   final List<String> _messages = [];
+  Box<dynamic> _chatBox = Hive.box('chat_sessions');
 
   List<String> get messages => _messages;
   bool get isChatInitialized => _isChatInitialized;
@@ -30,7 +31,7 @@ class MyChatProvider with ChangeNotifier {
     _messages.add('You: $message');
     notifyListeners();
     final response = await _chat!.sendMessage(Content.text(message));
-    _messages.add('Bot: ${response.text ?? "can't generate anything"}');
+    _messages.add('Bot: ${response.text ?? "can\'t generate anything"}');
     notifyListeners();
   }
 
@@ -49,5 +50,24 @@ class MyChatProvider with ChangeNotifier {
       _messages.add('Bot: Error analyzing image: $e');
     }
     notifyListeners();
+  }
+
+  void saveSession() {
+    final sessionKey = 'session_${DateTime.now().millisecondsSinceEpoch}';
+    _chatBox.put(sessionKey, _messages.toList()); // Save a copy of the list
+  }
+
+  void loadSession(List<String> messages) {
+    _messages.clear();
+    _messages.addAll(messages);
+    notifyListeners();
+  }
+
+  List<String> getAllSessions() {
+    return _chatBox.keys.cast<String>().toList();
+  }
+
+  List<String> getSession(String key) {
+    return _chatBox.get(key).cast<String>();
   }
 }

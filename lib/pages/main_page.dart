@@ -5,33 +5,24 @@ import 'package:medisnap/constants/colors.dart';
 import 'package:medisnap/pages/chat_page.dart';
 import 'package:medisnap/pages/history_page.dart';
 import 'package:medisnap/pages/home_page.dart';
+import 'package:provider/provider.dart';
+import 'package:medisnap/provider/nav_provider.dart';
 
-class MainPage extends StatefulWidget {
+class MainPage extends StatelessWidget {
   const MainPage({super.key});
 
   @override
-  State<MainPage> createState() => _MainPageState();
-}
-
-class _MainPageState extends State<MainPage> {
-  int _selectedIndex = 1;
-
-  void navigateBottomBar(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
-  final List<Widget> _pages = [
-    const HistoryPage(),
-    const HomePage(),
-    ChatPage(
-      openCameraOnStart: false,
-    ),
-  ];
-
-  @override
   Widget build(BuildContext context) {
+    final navProvider = Provider.of<NavProvider>(context);
+
+    final List<Widget> _pages = [
+      const HistoryPage(),
+      const HomePage(),
+      ChatPage(
+        openCameraOnStart: navProvider.openCameraOnChatPageStart,
+      ),
+    ];
+
     return Scaffold(
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.only(
@@ -42,8 +33,10 @@ class _MainPageState extends State<MainPage> {
         child: GNav(
           backgroundColor: primaryColor,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
-          selectedIndex: _selectedIndex,
-          onTabChange: navigateBottomBar,
+          selectedIndex: navProvider.selectedIndex,
+          onTabChange: (index) {
+            navProvider.setSelectedIndex(index, false);
+          },
           color: textColor,
           activeColor: primaryColor,
           tabBackgroundColor: secondaryColor,
@@ -85,7 +78,7 @@ class _MainPageState extends State<MainPage> {
           ),
         ),
       ),
-      body: _pages[_selectedIndex],
+      body: _pages[navProvider.selectedIndex],
     );
   }
 }

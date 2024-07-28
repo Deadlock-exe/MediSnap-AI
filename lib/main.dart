@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:medisnap/auth/login_page.dart';
 import 'package:medisnap/constants/routes.dart';
 import 'package:medisnap/firebase_options.dart';
@@ -8,6 +10,7 @@ import 'package:medisnap/pages/main_page.dart';
 import 'package:medisnap/provider/auth_provider.dart';
 import 'package:medisnap/provider/chat_provider.dart';
 import 'package:medisnap/provider/image_provider.dart';
+import 'package:medisnap/provider/nav_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -15,6 +18,8 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await Hive.initFlutter();
+  await Hive.openBox('chat_sessions');
   runApp(MyApp());
 }
 
@@ -32,6 +37,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => FirebaseAuthProvider()),
         ChangeNotifierProvider(create: (_) => MyChatProvider()),
         ChangeNotifierProvider(create: (_) => MyImageProvider()),
+        ChangeNotifierProvider(create: (_) => NavProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

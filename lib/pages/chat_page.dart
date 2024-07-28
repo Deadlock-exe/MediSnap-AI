@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class ChatPage extends StatefulWidget {
-  bool openCameraOnStart;
+  bool openCameraOnStart = false;
   ChatPage({
     super.key,
     required this.openCameraOnStart,
@@ -44,8 +44,23 @@ class _ChatPageState extends State<ChatPage> {
     return Scaffold(
       backgroundColor: primaryColor,
       appBar: AppBar(
-        toolbarHeight: 20,
+        toolbarHeight: 30,
         backgroundColor: primaryColor,
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.save_alt,
+              size: 25,
+              color: textColor,
+            ),
+            onPressed: () {
+              chatProvider.saveSession();
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Chat session saved!')),
+              );
+            },
+          ),
+        ],
       ),
       body: ChatModel(
         messages: chatProvider.messages,

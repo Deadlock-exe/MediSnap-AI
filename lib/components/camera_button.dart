@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:medisnap/constants/colors.dart';
-import 'package:medisnap/pages/chat_page.dart';
+import 'package:medisnap/provider/nav_provider.dart';
+import 'package:provider/provider.dart';
 
 class CameraButton extends StatelessWidget {
   const CameraButton({
@@ -17,9 +18,7 @@ class CameraButton extends StatelessWidget {
       ),
       elevation: 1,
       onPressed: () {
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => ChatPage(openCameraOnStart: true),
-        ));
+        Provider.of<NavProvider>(context, listen: false).toChatPage(true);
       },
       child: Icon(
         Icons.camera_alt,
