@@ -3,6 +3,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:medisnap/components/drawer.dart';
 import 'package:medisnap/constants/colors.dart';
 import 'package:medisnap/pages/chat_page.dart';
+import 'package:medisnap/pages/history_page.dart';
 import 'package:medisnap/pages/home_page.dart';
 
 class MainPage extends StatefulWidget {
@@ -13,7 +14,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
 
   void navigateBottomBar(int index) {
     setState(() {
@@ -22,6 +23,7 @@ class _MainPageState extends State<MainPage> {
   }
 
   final List<Widget> _pages = [
+    const HistoryPage(),
     const HomePage(),
     ChatPage(
       openCameraOnStart: false,
@@ -48,6 +50,11 @@ class _MainPageState extends State<MainPage> {
           gap: 5,
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
           tabs: const [
+            GButton(
+              icon: Icons.history,
+              text: "HISTORY",
+              iconSize: 25,
+            ),
             GButton(
               icon: Icons.home_sharp,
               text: "HOME",
