@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:medisnap/constants/colors.dart';
 import 'package:medisnap/provider/auth_provider.dart';
+import 'package:medisnap/provider/user_provider.dart';
 import 'package:provider/provider.dart';
 
 class SignupPage extends StatefulWidget {
@@ -143,13 +144,18 @@ class _SignupPageState extends State<SignupPage> {
                   final email = _email.text;
                   final password = _password.text;
 
-                  await Provider.of<FirebaseAuthProvider>(
-                          listen: false, context)
-                      .signUp(
-                    email,
-                    password,
-                  );
-                  Navigator.pushReplacementNamed(context, '/main');
+                  try {
+                    await Provider.of<FirebaseAuthProvider>(context,
+                            listen: false)
+                        .signUp(email, password);
+                    final userProvider =
+                        Provider.of<UserProvider>(context, listen: false);
+                    await userProvider.initializeUserDocument();
+
+                    Navigator.pushReplacementNamed(context, '/main');
+                  } catch (e) {
+                    print("Sign-up failed: $e");
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: accentColor,

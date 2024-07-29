@@ -80,4 +80,16 @@ class MyChatProvider with ChangeNotifier {
   List<String> getSession(String key) {
     return _chatBox.get(key).cast<String>();
   }
+
+  void clearChat() {
+    _messages.clear();
+    _initializeChat();
+    notifyListeners();
+  }
+
+  void clearAllSessions() {
+    _chatBox.clear();
+    _sessionOrder.clear();
+    notifyListeners();
+  }
 }

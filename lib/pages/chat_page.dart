@@ -45,36 +45,72 @@ class _ChatPageState extends State<ChatPage> {
     return Scaffold(
       backgroundColor: primaryColor,
       appBar: AppBar(
+        title: Text(
+          "Chat with AI",
+          style: TextStyle(
+            color: secondaryColor,
+            fontSize: 16,
+          ),
+        ),
+        centerTitle: true,
         toolbarHeight: 30,
         backgroundColor: primaryColor,
         actions: [
-          IconButton(
+          PopupMenuButton<String>(
             icon: Icon(
-              Icons.save_alt,
+              Icons.more_vert_outlined,
               size: 25,
               color: textColor,
             ),
-            onPressed: () async {
-              final sessionName = await showSaveDialog(context);
-              if (sessionName != null && sessionName.isNotEmpty) {
-                chatProvider.saveSession(sessionName);
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Chat session "$sessionName" saved!')),
-                );
+            onSelected: (String value) async {
+              if (value == 'save') {
+                final sessionName = await showSaveDialog(context);
+                if (sessionName != null && sessionName.isNotEmpty) {
+                  chatProvider.saveSession(sessionName);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Chat session "$sessionName" saved!'),
+                    ),
+                  );
+                }
+              } else if (value == 'new') {
+                final sessionName = await showSaveDialog(context);
+                if (sessionName != null && sessionName.isNotEmpty) {
+                  chatProvider.saveSession(sessionName);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Chat session "$sessionName" saved!'),
+                    ),
+                  );
+                }
+                chatProvider.clearChat();
               }
             },
+            itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+              const PopupMenuItem<String>(
+                value: 'save',
+                child: Text('Save Chat'),
+              ),
+              const PopupMenuItem<String>(
+                value: 'new',
+                child: Text('New Chat'),
+              ),
+            ],
           ),
         ],
       ),
-      body: ChatModel(
-        messages: chatProvider.messages,
-        controller: _controller,
-        sendMessage: (message) {
-          chatProvider.sendMessage(message);
-        },
-        sendImage: (image, prompt) {
-          chatProvider.sendImage(image, prompt);
-        },
+      body: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 12),
+        child: ChatModel(
+          messages: chatProvider.messages,
+          controller: _controller,
+          sendMessage: (message) {
+            chatProvider.sendMessage(message);
+          },
+          sendImage: (image, prompt) {
+            chatProvider.sendImage(image, prompt);
+          },
+        ),
       ),
     );
   }

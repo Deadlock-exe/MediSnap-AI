@@ -27,8 +27,8 @@ class MainPage extends StatelessWidget {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.only(
           bottom: 10,
-          left: 50,
-          right: 50,
+          left: 25,
+          right: 25,
         ),
         child: GNav(
           backgroundColor: primaryColor,
@@ -41,7 +41,7 @@ class MainPage extends StatelessWidget {
           activeColor: primaryColor,
           tabBackgroundColor: secondaryColor,
           gap: 5,
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
           tabs: const [
             GButton(
               icon: Icons.history,

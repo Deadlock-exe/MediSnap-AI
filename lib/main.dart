@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:medisnap/auth/login_page.dart';
 import 'package:medisnap/constants/routes.dart';
@@ -11,6 +10,7 @@ import 'package:medisnap/provider/auth_provider.dart';
 import 'package:medisnap/provider/chat_provider.dart';
 import 'package:medisnap/provider/image_provider.dart';
 import 'package:medisnap/provider/nav_provider.dart';
+import 'package:medisnap/provider/user_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -38,6 +38,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => MyChatProvider()),
         ChangeNotifierProvider(create: (_) => MyImageProvider()),
         ChangeNotifierProvider(create: (_) => NavProvider()),
+        ChangeNotifierProvider(create: (_) => UserProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
