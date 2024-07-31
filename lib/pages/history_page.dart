@@ -27,10 +27,13 @@ class HistoryPage extends StatelessWidget {
         backgroundColor: primaryColor,
         actions: [
           PopupMenuButton<String>(
-            icon: Icon(
-              Icons.more_vert_outlined,
-              size: 25,
-              color: textColor,
+            icon: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Icon(
+                Icons.more_vert_outlined,
+                size: 25,
+                color: textColor,
+              ),
             ),
             onSelected: (value) {
               if (value == 'Delete History') {

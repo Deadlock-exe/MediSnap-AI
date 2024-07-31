@@ -108,17 +108,17 @@ class ChatModel extends StatelessWidget {
                     hintText: 'Type a message',
                     hintStyle: TextStyle(color: secondaryColor),
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(15),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: textColor,
+                        color: secondaryColor,
                         width: 1,
                       ),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: textColor,
+                        color: secondaryColor,
                         width: 1,
                       ),
                     ),

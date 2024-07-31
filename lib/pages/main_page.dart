@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:medisnap/components/drawer.dart';
+import 'package:medisnap/components/profile_photo.dart';
 import 'package:medisnap/constants/colors.dart';
 import 'package:medisnap/pages/chat_page.dart';
 import 'package:medisnap/pages/history_page.dart';
@@ -66,7 +67,7 @@ class MainPage extends StatelessWidget {
       appBar: AppBar(
         iconTheme: IconThemeData(color: textColor),
         backgroundColor: primaryColor,
-        toolbarHeight: 50,
+        toolbarHeight: 55,
         centerTitle: true,
         title: const Text(
           "MediSnap",
@@ -77,6 +78,14 @@ class MainPage extends StatelessWidget {
             color: textColor,
           ),
         ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8),
+            child: ProfilePhoto(
+              pfpSize: 20,
+            ),
+          ),
+        ],
       ),
       body: _pages[navProvider.selectedIndex],
     );

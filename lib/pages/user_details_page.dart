@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:medisnap/components/profile_photo.dart';
 import 'package:provider/provider.dart';
 import 'package:medisnap/provider/user_provider.dart';
 
@@ -28,7 +29,6 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserProvider>(context);
-    String? profilePhotoUrl = userProvider.profilePhotoUrl;
 
     return Scaffold(
       appBar: AppBar(
@@ -38,13 +38,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
         padding: EdgeInsets.all(16.0),
         child: Column(
           children: [
-            if (profilePhotoUrl != null && profilePhotoUrl.isNotEmpty)
-              CircleAvatar(
-                radius: 60,
-                backgroundImage: NetworkImage(profilePhotoUrl),
-              )
-            else
-              Icon(Icons.person),
+            ProfilePhoto(pfpSize: 40),
             SizedBox(height: 10),
             ElevatedButton(
               onPressed: () async {

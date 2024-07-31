@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medisnap/components/profile_photo.dart';
 import 'package:medisnap/constants/colors.dart';
 import 'package:medisnap/provider/auth_provider.dart';
 import 'package:medisnap/provider/user_provider.dart';
@@ -11,7 +12,6 @@ class MyDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     UserProvider userProvider = Provider.of<UserProvider>(context);
     String? userName = userProvider.displayName ?? "unKnown";
-    String? profilePhotoUrl = userProvider.profilePhotoUrl;
 
     return Drawer(
       backgroundColor: primaryColor,
@@ -22,17 +22,7 @@ class MyDrawer extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  if (profilePhotoUrl != null)
-                    CircleAvatar(
-                      radius: 40,
-                      backgroundImage: NetworkImage(profilePhotoUrl),
-                    )
-                  else
-                    Icon(
-                      Icons.person,
-                      size: 40,
-                      color: secondaryColor,
-                    ),
+                  ProfilePhoto(pfpSize: 40),
                   SizedBox(height: 10),
                   Flexible(
                     child: Text(

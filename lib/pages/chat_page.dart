@@ -53,14 +53,17 @@ class _ChatPageState extends State<ChatPage> {
           ),
         ),
         centerTitle: true,
-        toolbarHeight: 30,
+        toolbarHeight: 40,
         backgroundColor: primaryColor,
         actions: [
           PopupMenuButton<String>(
-            icon: Icon(
-              Icons.more_vert_outlined,
-              size: 25,
-              color: textColor,
+            icon: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Icon(
+                Icons.more_vert_outlined,
+                size: 25,
+                color: textColor,
+              ),
             ),
             onSelected: (String value) async {
               if (value == 'save') {
