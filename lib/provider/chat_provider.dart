@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter_gemini/flutter_gemini.dart' as flutter_gemini;
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:hive/hive.dart';
 import 'package:medisnap/api/model.dart';
@@ -12,17 +11,16 @@ class MyChatProvider with ChangeNotifier {
   Box<dynamic> _chatBox = Hive.box('chat_sessions');
   List<String> _sessionOrder = [];
 
+  late GenerativeModel model = aiModel;
+
   List<String> get messages => _messages;
   bool get isChatInitialized => _isChatInitialized;
 
   MyChatProvider() {
     _initializeChat();
-    _loadSessionOrder();
   }
 
   Future<void> _initializeChat() async {
-    final model = aiModel;
-    flutter_gemini.Gemini.init(apiKey: apiKey);
     _chat = await startChat(model);
     _isChatInitialized = true;
     _messages.add('Bot: Hello! How can I assist you today?');
@@ -32,8 +30,13 @@ class MyChatProvider with ChangeNotifier {
   Future<void> sendMessage(String message) async {
     _messages.add('You: $message');
     notifyListeners();
-    final response = await _chat!.sendMessage(Content.text(message));
-    _messages.add('Bot: ${response.text ?? "can\'t generate anything"}');
+    try {
+      final response = await _chat!.sendMessage(Content.text(message));
+      _messages.add('Bot: ${response.text ?? "can\'t generate anything"}');
+    } catch (e) {
+      _messages.add('Bot: Error sending message: $e');
+      print('Error details: $e');
+    }
     notifyListeners();
   }
 
@@ -41,16 +44,20 @@ class MyChatProvider with ChangeNotifier {
     _messages.add("You: $prompt \n (you added 1 attachment)");
     notifyListeners();
     try {
-      final gemini = flutter_gemini.Gemini.instance;
-      final response = await gemini.textAndImage(
-        text: prompt,
-        images: [image.readAsBytesSync()],
-      );
+      final imageBytes = image.readAsBytesSync();
+      final promptContent = TextPart(prompt);
+      final imagePart = DataPart('image/jpeg', imageBytes);
+
+      final response = await model.generateContent([
+        Content.multi([promptContent, imagePart])
+      ]);
+
       _messages.add(
-        'Bot: ${response?.content?.parts?.last.text ?? 'No response'}',
+        'Bot: ${response.text ?? 'No response'}',
       );
     } catch (e) {
       _messages.add('Bot: Error analyzing image: $e');
+      print('Error details: $e');
     }
     notifyListeners();
   }
@@ -67,7 +74,7 @@ class MyChatProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void _loadSessionOrder() {
+  void loadSessionOrder() {
     if (_chatBox.containsKey('session_order')) {
       _sessionOrder = _chatBox.get('session_order').cast<String>();
     }

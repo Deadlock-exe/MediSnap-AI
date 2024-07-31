@@ -40,7 +40,6 @@ class UserProvider with ChangeNotifier {
       if (userDoc.exists) {
         _displayName = userDoc['displayName'];
 
-        // Load profile photo from Hive
         var box = await Hive.openBox('user_data');
         _profilePhotoPath = box.get('profilePhotoPath');
       } else {
@@ -65,16 +64,13 @@ class UserProvider with ChangeNotifier {
 
   Future<void> updateProfilePhoto(String profilePhotoPath) async {
     try {
-      // Save profile photo path to Hive
       var box = await Hive.openBox('user_data');
       await box.put('profilePhotoPath', profilePhotoPath);
 
-      // Update local state
       _profilePhotoPath = profilePhotoPath;
       notifyListeners();
     } catch (e) {
       print('Error updating profile photo: $e');
-      // Handle error gracefully
     }
   }
 }

@@ -73,6 +73,7 @@ class _ChatPageState extends State<ChatPage> {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text('Chat session "$sessionName" saved!'),
+                      duration: Duration(seconds: 2),
                     ),
                   );
                 }
@@ -83,6 +84,7 @@ class _ChatPageState extends State<ChatPage> {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text('Chat session "$sessionName" saved!'),
+                      duration: Duration(seconds: 2),
                     ),
                   );
                 }
