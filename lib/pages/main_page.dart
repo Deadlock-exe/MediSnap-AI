@@ -80,7 +80,10 @@ class MainPage extends StatelessWidget {
         ),
         actions: [
           Padding(
-            padding: const EdgeInsets.all(8),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 12,
+              vertical: 9,
+            ),
             child: ProfilePhoto(
               pfpSize: 20,
             ),
