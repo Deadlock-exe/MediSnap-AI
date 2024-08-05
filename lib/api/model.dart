@@ -3,9 +3,20 @@ import 'package:medisnap/env.dart';
 
 final apiKey = Env.apikey;
 
+final generationConfig = GenerationConfig(
+  // maxOutputTokens: 100,
+  temperature: 0.3,
+  topP: 0.1,
+  topK: 1,
+  // temperature: 0.8,
+  // topP: 0.9,
+  // topK: 10,
+);
+
 final aiModel = GenerativeModel(
   model: 'gemini-1.5-flash',
   apiKey: apiKey,
+  generationConfig: generationConfig,
 );
 
 Future<ChatSession> startChat(GenerativeModel model) async {
