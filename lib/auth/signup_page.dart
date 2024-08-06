@@ -152,7 +152,7 @@ class _SignupPageState extends State<SignupPage> {
                         Provider.of<UserProvider>(context, listen: false);
                     await userProvider.initializeUserDocument();
 
-                    Navigator.pushReplacementNamed(context, '/main');
+                    Navigator.pushReplacementNamed(context, '/intro');
                   } catch (e) {
                     print("Sign-up failed: $e");
                   }
