@@ -11,7 +11,7 @@ class MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     UserProvider userProvider = Provider.of<UserProvider>(context);
-    String? userName = userProvider.displayName ?? "unKnown";
+    String? userName = userProvider.displayName ?? "Guest";
 
     return Drawer(
       backgroundColor: primaryColor,

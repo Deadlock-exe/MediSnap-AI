@@ -25,7 +25,7 @@ class HomePage extends StatelessWidget {
             child: Image.asset('assets/images/home.png'),
           ),
           Text(
-            "Welcome! ${Provider.of<UserProvider>(context).displayName}",
+            "Welcome! ${Provider.of<UserProvider>(context).displayName ?? 'Guest'}",
             style: TextStyle(
               fontSize: 25,
               color: textColor,
