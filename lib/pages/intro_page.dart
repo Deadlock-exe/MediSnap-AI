@@ -26,9 +26,21 @@ class _IntroPageState extends State<IntroPage> {
               });
             },
             children: [
-              IntroContainer(),
-              IntroContainer(),
-              IntroContainer(),
+              IntroContainer(
+                imagePath: 'assets/images/logo.png',
+                pageText:
+                    "Welcome to MediSnap, aiding symptom analysis and self medication",
+              ),
+              IntroContainer(
+                imagePath: 'assets/images/cam.png',
+                pageText:
+                    "Quick camera access button to upload images directly to AI in emergencies",
+              ),
+              IntroContainer(
+                imagePath: 'assets/images/app.png',
+                pageText:
+                    "Access your chat history and manage your health data securely with ease",
+              ),
             ],
           ),
           SmoothDots(
