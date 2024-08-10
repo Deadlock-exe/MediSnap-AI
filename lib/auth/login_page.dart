@@ -154,7 +154,11 @@ class _LoginPageState extends State<LoginPage> {
 
                     Navigator.pushReplacementNamed(context, '/main');
                   } catch (e) {
-                    print("Sign-up failed: $e");
+                    final snackBar = SnackBar(
+                      content: Text('Sign-in failed: ${e.toString()}'),
+                      backgroundColor: Colors.red,
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   }
                 },
                 style: ElevatedButton.styleFrom(
